@@ -1,0 +1,66 @@
+.poster {
+    width: 300px;
+}
+
+.movieWrap {
+    display: flex;
+    gap: 50px;
+}
+
+.movieInfo {
+    max-width: 800px;
+}
+
+.title {
+    display: inline;
+    color: #fff;
+    margin: 0;
+}
+
+.text {
+    color: #fff;
+}
+
+.list {
+    margin-top: 16px;
+    display: flex;
+}
+
+.item {
+    color: #fff;
+}
+
+.item:not(:last-child)::after {
+    content: ",";
+    margin-right: 10px;
+}
+.imgWrap{
+    position: relative;
+}
+.nav {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #b72f2b;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    font-size: 18px;
+    width: 150px;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 100ms linear;
+}
+
+.link:hover,
+.link:focus,
+.active {
+    background-color: #d82923;
+}
