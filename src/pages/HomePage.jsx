@@ -53,11 +53,13 @@ const HomePage = () => {
           />
         ))}
       </ul>
-      <PaginationComp
-        page={page}
-        handlePageChange={handlePageChange}
-        totalItems={totalItems}
-      />
+      {movies.length > 0 && (
+        <PaginationComp
+          page={page}
+          handlePageChange={handlePageChange}
+          totalItems={totalItems}
+        />
+      )}
       {modalData && (
         <MovieModal
           modalData={modalData}
