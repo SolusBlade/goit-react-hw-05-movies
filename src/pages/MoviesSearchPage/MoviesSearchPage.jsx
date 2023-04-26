@@ -1,32 +1,51 @@
 import { useEffect, useState } from 'react';
-import {
-  useSearchParams,
-  NavLink,
-  useLocation,
-} from 'react-router-dom';
-
+import { useSearchParams } from 'react-router-dom';
 
 import SearchForm from '../../components/SearchForm/SearchForm';
-import s from "./MoviesSearchPage.module.css"
-import { getSearchedMovieapi } from '../../services/moviesApi';
+import s from './MoviesSearchPage.module.css';
+import {
+  getMovieTrailerapi,
+  getSearchedMovieapi,
+} from '../../services/moviesApi';
 import GoBackBtn from '../../components/GoBackBtn/GoBackBtn';
+import MovieModal from 'components/MovieModal/MovieModal';
+import MovieItem from 'components/MovieItem/MovieItem';
+import PaginationComp from 'components/PaginationComp/PaginationComp';
 
 const MoviesSearchPage = () => {
   const [movies, setMovies] = useState([]);
-  const [search] = useSearchParams();
-
-   let location = useLocation();
+  const [modalData, setModalData] = useState(null);
+  const [totalItems, setTotalItems] = useState(null);
+  const [search, setSearch] = useSearchParams();
 
   const query = search.get('query');
+  const page = search.get('page');
+  console.log(page);
 
   useEffect(() => {
     if (!query) return;
-    getSearchedMovieapi(query)
-      .then(r => setMovies(r.results))
-      .catch(err => console.log(err));
-  }, [query]);
+    getSearchedMovieapi(query, page).then(r => {
+      setMovies(r.results);
+      setTotalItems(r.total_results);
+    });
+  }, [query, page]);
 
+  const handlePageChange = pageNumber => {
+    setSearch({ query, page: pageNumber });
+  };
 
+  const hendleOpenModal = id => {
+    getMovieTrailerapi(id).then(r =>
+      setModalData(
+        r.results.find(movie => movie.name.toLowerCase().includes('trailer'))
+          ?.key
+      )
+    );
+  };
+
+  const hendleCloseModal = () => {
+    setModalData(null);
+  };
 
   return (
     <>
@@ -35,26 +54,25 @@ const MoviesSearchPage = () => {
       {movies.length > 0 && (
         <>
           <ul className={s.list}>
-            {movies.map(({ id, title, poster_path }) => (
-              <li key={id} className={s.item}>
-                <NavLink
-                  to={'/goit-react-hw-05-movies/movies/' + id}
-                  className={s.linkWrap}
-                  state={location}
-                >
-                  <img
-                    src={'https://image.tmdb.org/t/p/original' + poster_path}
-                    className={s.poster}
-                    alt=""
-                  />
-                  <div className={s.wrap}>
-                    <p className={s.text}>{title}</p>
-                  </div>
-                </NavLink>
-              </li>
+            {movies.map(data => (
+              <MovieItem
+                key={data.id}
+                data={data}
+                hendleOpenModal={hendleOpenModal}
+              />
             ))}
           </ul>
         </>
+      )}
+      {movies.length > 0 && (
+        <PaginationComp
+          page={page}
+          handlePageChange={handlePageChange}
+          totalItems={totalItems}
+        />
+      )}
+      {modalData && (
+        <MovieModal modalData={modalData} closeModal={hendleCloseModal} />
       )}
     </>
   );

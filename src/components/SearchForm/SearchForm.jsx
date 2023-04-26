@@ -12,7 +12,7 @@ const SearchForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setSearch({ query: input });
+    setSearch({ query: input, page: 1 });
   };
 
   return (

@@ -4,10 +4,11 @@ import axios from "axios";
 const API_KEY = '571e3bd2c39f71ab899b0219901320b3';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 
-export const getTrandingMoviesapi = () => {
+export const getTrandingMoviesapi = (page) => {
   return axios
     .get('/trending/movie/day', {
       params: {
+        page,
         api_key: API_KEY,
       },
     })
@@ -44,11 +45,23 @@ export const getMovieReviewapi = (id) => {
     .then(res => res.data);
 };
 
-export const getSearchedMovieapi = query => {
+export const getSearchedMovieapi = (query, page=1) => {
   return axios
     .get(`/search/movie`, {
       params: {
+        page,
         query,
+        api_key: API_KEY,
+      },
+    })
+    .then(res => res.data);
+};
+//api.themoviedb.org/3/movie/868759/videos?api_key=
+
+export const getMovieTrailerapi = id => {
+  return axios
+    .get(`/movie/${id}/videos`, {
+      params: {
         api_key: API_KEY,
       },
     })

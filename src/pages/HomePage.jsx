@@ -1,40 +1,70 @@
 import { memo, useEffect, useState } from 'react';
-import { getTrandingMoviesapi } from '../services/moviesApi';
-import { NavLink, useLocation } from 'react-router-dom';
+import {
+  getMovieTrailerapi,
+  getTrandingMoviesapi,
+} from '../services/moviesApi';
+
 import s from './HomePage.module.css';
+import MovieModal from 'components/MovieModal/MovieModal';
+import PaginationComp from 'components/PaginationComp/PaginationComp';
+import MovieItem from 'components/MovieItem/MovieItem';
 
 const HomePage = () => {
-  const location = useLocation();
-
+  
+  
   const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(null);
+  const [modalData, setModalData] = useState(null);
 
   useEffect(() => {
-    getTrandingMoviesapi().then(r => setMovies(r.results));
-  }, []);
+    getTrandingMoviesapi(page).then(r => {
+      setMovies(r.results);
+      setTotalItems(r.total_results);
+    });
+  }, [page]);
+
+  const handlePageChange = pageNumber => {
+    setPage(pageNumber);
+  };
+
+  const hendleOpenModal = id => {
+    getMovieTrailerapi(id).then(r =>
+      setModalData(
+        r.results.find(movie => movie.name.toLowerCase().includes('trailer'))
+          ?.key
+      )
+    );
+  };
+
+  const hendleCloseModal = () => {
+    setModalData(null);
+  };
 
   return (
     <>
       <h1 className={s.title}>Trending today</h1>
       <ul className={s.list}>
-        {movies.map(({ id, title, poster_path }) => (
-          <li key={id} className={s.item}>
-            <NavLink
-              to={'/goit-react-hw-05-movies/movies/' + id}
-              className={s.linkWrap}
-              state={location}
-            >
-              <img
-                src={'https://image.tmdb.org/t/p/original' + poster_path}
-                className={s.poster}
-                alt=""
-              />
-              <div className={s.wrap}>
-                <p className={s.text}>{title}</p>
-              </div>
-            </NavLink>
-          </li>
+        {movies.map(data => (
+          <MovieItem
+            key={data.id}
+            data={data}
+            hendleOpenModal={hendleOpenModal}
+          />
         ))}
       </ul>
+      <PaginationComp
+        page={page}
+        handlePageChange={handlePageChange}
+        totalItems={totalItems}
+      />
+      {modalData && (
+        <MovieModal
+          modalData={modalData}
+          closeModal={hendleCloseModal}
+          hendleOpenModal={hendleOpenModal}
+        />
+      )}
     </>
   );
 };

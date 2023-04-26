@@ -50,7 +50,11 @@ const MovieInfo = () => {
         <div className={s.movieWrap}>
           <div className={s.imgWrap}>
             <img
-              src={'https://image.tmdb.org/t/p/original' + poster_path}
+              src={
+                poster_path !== null
+                  ? 'https://image.tmdb.org/t/p/original' + poster_path
+                  : 'https://cinemaone.net/images/movie_placeholder.png'
+              }
               className={s.poster}
               alt=""
             />
@@ -79,7 +83,9 @@ const MovieInfo = () => {
             <h1 className={s.title}>
               {title} <span>({parseInt(release_date)})</span>{' '}
             </h1>
-            <p className={s.text}>User score: {parseInt(vote_average * 10)}%</p>
+            <p className={s.text}>
+              Rating: {parseFloat(vote_average).toFixed(1)}
+            </p>
             <h2 className={s.title}>Overview</h2>
             <p className={s.text}>{overview}</p>
             <h2 className={s.title}>Genres</h2>

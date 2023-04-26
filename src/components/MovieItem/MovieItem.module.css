@@ -1,0 +1,93 @@
+.item {
+    position: relative;
+    height: 400px;
+}
+
+.btn {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 19px;
+    background: none;
+    border: none;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.btn::after {
+    display: none;
+    content: "Смотреть трейлер";
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.btn:hover::after,
+.btn:focus::after {
+    display: block;
+}
+
+.btn:hover,
+.btn:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.btnIcon {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    padding-left: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    fill: #d82923;
+    width: 35px;
+    height: 35px;
+}
+
+.linkWrap {
+    text-decoration: none;
+}
+.rating {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    margin: 0;
+    border: 2px solid #d82923;
+    border-radius: 50%;
+    color: #d82923;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+}
+
+.poster {
+    width: 200px;
+}
+
+.textTitle {
+    width: 190px;
+    display: block;
+    margin: 10px 0;
+    margin-left: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #d82923;
+}
+
+.text {
+    width: 190px;
+    display: block;
+    margin: 10px 0;
+    margin-left: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+}
