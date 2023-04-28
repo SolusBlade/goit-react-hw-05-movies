@@ -14,7 +14,7 @@ const MainNav = () => {
           <li className={s.item}>
             <NavLink
               className={getACtiveClass}
-              to="/goit-react-hw-05-movies"
+              to="/"
               end
             >
               Home
@@ -23,7 +23,7 @@ const MainNav = () => {
           <li className={s.item}>
             <NavLink
               className={getACtiveClass}
-              to="/goit-react-hw-05-movies/movies"
+              to="/movies"
               state={location}
             >
               Movies

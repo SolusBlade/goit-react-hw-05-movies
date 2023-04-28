@@ -1,10 +1,11 @@
 import Pagination from "react-js-pagination";
 import s from './PaginationComp.module.css';
+import { memo } from "react";
 
-const PaginationComp = ({ page, handlePageChange, totalItems }) => {
+const PaginationComp = ({ page=1, handlePageChange, totalItems }) => {
   return (
     <Pagination
-      activePage={page}
+      activePage={Number(page) === 0 ? 1 : Number(page)}
       itemsCountPerPage={20}
       totalItemsCount={totalItems}
       pageRangeDisplayed={10}
@@ -18,4 +19,4 @@ const PaginationComp = ({ page, handlePageChange, totalItems }) => {
   );
 };
 
-export default PaginationComp;
+export default memo(PaginationComp);

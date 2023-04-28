@@ -1,15 +1,15 @@
 import { memo, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { useLocation, NavLink } from 'react-router-dom';
+import { useLocation, NavLink, useParams } from 'react-router-dom';
 
 import { getMovieByIdapi } from '../../services/moviesApi';
 import s from './MovieInfo.module.css';
+import GenresList from 'components/GenresList/GenresList';
 
 const getACtiveClass = ({ isActive }) => clsx(s.link, isActive && s.active);
 
 const MovieInfo = () => {
   const [movie, setMovie] = useState({});
-  // const [genres, setGenres] = useState([]);
 
   const {
     poster_path,
@@ -18,29 +18,15 @@ const MovieInfo = () => {
     vote_average,
     overview,
     genres = [],
+    runtime,
   } = movie;
 
   const location = useLocation();
-
-  const str = location.pathname;
-
-  const parts = str.split('/');
-
-  // console.log(parts);
-  let id = 0;
-  if (
-    parts[parts.length - 1] === 'cast' ||
-    parts[parts.length - 1] === 'reviews'
-  ) {
-    id = parts[parts.length - 2];
-  } else {
-    id = parts[parts.length - 1];
-  }
+  const { movieId: id } = useParams();
 
   useEffect(() => {
     getMovieByIdapi(id).then(r => {
       setMovie(r);
-      // setGenres(r.genres);
     });
   }, [id]);
 
@@ -56,6 +42,7 @@ const MovieInfo = () => {
                   : 'https://cinemaone.net/images/movie_placeholder.png'
               }
               className={s.poster}
+              height={450}
               alt=""
             />
             <ul className={s.nav}>
@@ -84,18 +71,18 @@ const MovieInfo = () => {
               {title} <span>({parseInt(release_date)})</span>{' '}
             </h1>
             <p className={s.text}>
-              Rating: {parseFloat(vote_average).toFixed(1)}
+              <span className={s.textSpan}>Rating: </span>{' '}
+              {parseFloat(vote_average).toFixed(1)}
+            </p>
+            <p className={s.text}>
+              <span className={s.textSpan}>Genres:</span>
+              <GenresList genres={genres} />
+            </p>
+            <p className={s.text}>
+              <span className={s.textSpan}>Time: </span> {runtime} min
             </p>
             <h2 className={s.title}>Overview</h2>
-            <p className={s.text}>{overview}</p>
-            <h2 className={s.title}>Genres</h2>
-            <ul className={s.list}>
-              {genres.map(({ name, id }) => (
-                <li key={id} className={s.item}>
-                  {name}
-                </li>
-              ))}
-            </ul>
+            <p className={s.textOverview}>{overview}</p>
           </div>
         </div>
       )}

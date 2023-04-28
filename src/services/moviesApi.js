@@ -57,11 +57,62 @@ export const getSearchedMovieapi = (query, page=1) => {
     .then(res => res.data);
 };
 //api.themoviedb.org/3/movie/868759/videos?api_key=
-
+// /genre/movie/list
 export const getMovieTrailerapi = id => {
   return axios
     .get(`/movie/${id}/videos`, {
       params: {
+        api_key: API_KEY,
+      },
+    })
+    .then(res => res.data);
+};
+
+export const getMoviesGenreListapi = () => {
+  return axios
+    .get(`/genre/movie/list`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then(res => res.data);
+};
+
+export const getPersonDetailsapi = (id) => {
+  return axios
+    .get(`/person/${id}`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then(res => res.data);
+};
+
+export const getPersonMoviesapi = (id) => {
+  return axios
+    .get(`/person/${id}/movie_credits`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then(res => res.data);
+};
+
+export const getPersonImagesapi = (id) => {
+  return axios
+    .get(`/person/${id}/images`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then(res => res.data);
+};
+
+export const getMoviesByGenreapi = (id, page) => {
+  return axios
+    .get(`/genre/${id}/movies`, {
+      params: {
+        page,
         api_key: API_KEY,
       },
     })

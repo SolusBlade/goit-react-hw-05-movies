@@ -1,22 +1,18 @@
 import { memo } from 'react';
 
-import { Outlet } from 'react-router-dom';
-
-import MovieInfo from '../../components/MovieInfo/MovieInfo';
 import GoBackBtn from '../../components/GoBackBtn/GoBackBtn';
 import Container from 'components/Container/Container';
+import GenresInfo from 'components/GenresInfo/GenresInfo';
 
-const MoviesDetailsPage = () => {
-
+const GenresPage = ({ genres, hendleOpenModal }) => {
   return (
     <>
       <GoBackBtn />
       <Container>
-        <MovieInfo />
-        <Outlet />
+        <GenresInfo genres={genres} hendleOpenModal={hendleOpenModal} />
       </Container>
     </>
   );
 };
 
-export default memo(MoviesDetailsPage);
+export default memo(GenresPage);

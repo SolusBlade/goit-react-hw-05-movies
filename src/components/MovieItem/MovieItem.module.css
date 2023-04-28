@@ -1,23 +1,54 @@
-.item {
-    position: relative;
-    height: 400px;
+/* .item {
+    
+} */
+
+.flipCard:hover .flipCardInner::after,
+.flipCard:focus .flipCardInner::after {
+  position: absolute;
+  content: '';
+  top: 10px;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  transform: scale(0.9);
+  filter: blur(30px);
+  background: #d82923;
+  background: linear-gradient(to left, #d82923 0%, #b72f2b 100%);
+  transition: opacity 0.5s;
+}
+
+@keyframes rotBGimg {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .btn {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    display: flex;
-    align-items: center;
-    gap: 19px;
-    background: none;
-    border: none;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  /* sadasdasd */
+  /* display: none;  */
+  /* ubrat' */
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 19px;
+  background: none;
+  border: none;
+  /* padding: 10px; */
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  cursor: pointer;
 }
 
-.btn::after {
+/* .btn::after {
     display: none;
     content: "Смотреть трейлер";
     font-size: 12px;
@@ -29,65 +60,182 @@
 .btn:hover::after,
 .btn:focus::after {
     display: block;
-}
+} */
 
-.btn:hover,
-.btn:focus {
-    background-color: rgba(0, 0, 0, 0.5);
+.btn:hover .btnIcon,
+.btn:focus .btnIcon {
+  background-color: rgba(255, 255, 255, 0.808);
+  fill: #d82923;
 }
 
 .btnIcon {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    padding-left: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    fill: #d82923;
-    width: 35px;
-    height: 35px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  padding-left: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  fill: #b72f2b;
+  width: 50px;
+  height: 50px;
 }
 
 .linkWrap {
-    text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
 }
 .rating {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    margin: 0;
-    border: 2px solid #d82923;
-    border-radius: 50%;
-    color: #d82923;
-    font-weight: 600;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 35px;
-    height: 35px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  margin: 0;
+  border: 2px solid #d82923;
+  border-radius: 50%;
+  color: #d82923;
+  font-weight: 600;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
 }
 
 .poster {
-    width: 200px;
+  width: 248px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .textTitle {
-    width: 190px;
-    display: block;
-    margin: 10px 0;
-    margin-left: 5px;
-    font-size: 16px;
-    font-weight: 700;
-    color: #d82923;
+  width: 240px;
+  display: block;
+  margin: 10px 5px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #d82923;
+  text-shadow: 0px 2px 12px rgba(0, 0, 0, 1);
+}
+
+.textTitleBack {
+  width: 240px;
+  display: block;
+  margin: 10px 5px;
+  margin-top: 70px;
+
+  font-size: 16px;
+  font-weight: 700;
+  color: #f5f5f5;
+  /* text-align: start; */
 }
 
 .text {
-    width: 190px;
-    display: block;
-    margin: 10px 0;
-    margin-left: 5px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #fff;
+  width: 240px;
+  display: block;
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0px 2px 12px rgba(0, 0, 0, 1);
+}
+
+.textBack {
+  width: 230px;
+  display: block;
+  margin: 0;
+  margin-left: 5px;
+  text-align: start;
+  font-size: 14px;
+  line-height: calc(18 / 14);
+  font-weight: 500;
+  color: #f5f5f5;
+
+}
+
+.textBackSpan {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.textBackGenres {
+  width: 230px;
+  display: block;
+  margin: 0;
+  margin-left: 5px;
+  margin-top: 20px;
+  text-align: start;
+  font-size: 14px;
+  line-height: calc(18 / 14);
+  font-weight: 500;
+  color: #f5f5f5;
+  /* margin-top: auto; */
+}
+
+.wrap {
+  height: calc(100% - 385px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flipCard {
+  background-color: transparent;
+  width: 250px;
+  perspective: 1000px;
+  position: relative;
+  height: 475px;
+  cursor: pointer;
+}
+
+.flipCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flipCard:hover .flipCardInner,
+.flipCard:focus .flipCardInner {
+  transform: rotateY(180deg);
+}
+
+.flipCardFront,
+.flipCardBack {
+  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 1px solid #d82923;
+  border-radius: 10px;
+}
+
+.flipCardFront {
+  background: linear-gradient(
+    120deg,
+    #424242 60%,
+    #2e2e2e 88%,
+    #424242 40%,
+    #d82923 48%
+  );
+  color: coral;
+}
+
+.flipCardBack {
+  background: linear-gradient(
+    120deg,
+    #ef4a44 30%,
+    #d82923 88%,
+    #ef4a44 40%,
+    #424242 78%
+  );
+  color: white;
+  transform: rotateY(180deg);
 }

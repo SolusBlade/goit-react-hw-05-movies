@@ -1,43 +1,41 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 
-import SearchForm from '../../components/SearchForm/SearchForm';
-// eslint-disable-next-line
-import s from './MoviesSearchPage.module.css';
-import {
-  getSearchedMovieapi,
-} from '../../services/moviesApi';
-import GoBackBtn from '../../components/GoBackBtn/GoBackBtn';
+import s from './GenresInfo.module.css';
 import PaginationComp from 'components/PaginationComp/PaginationComp';
 import MovieList from 'components/MovieList/MovieList';
+import { getMoviesByGenreapi } from 'services/moviesApi';
 
-const MoviesSearchPage = ({
-  genres,
-  hendleOpenModal,
-}) => {
+const GenresInfo = ({ genres, hendleOpenModal }) => {
   const [movies, setMovies] = useState([]);
   const [totalItems, setTotalItems] = useState(null);
   const [search, setSearch] = useSearchParams();
 
-  const query = search.get('query');
   const page = search.get('page');
+  const { genreId: id } = useParams();
 
   useEffect(() => {
-    if (!query) return;
-    getSearchedMovieapi(query, page).then(r => {
+    getMoviesByGenreapi(id, page).then(r => {
       setMovies(r.results);
       setTotalItems(r.total_results);
     });
-  }, [query, page]);
+  }, [page, id]);
 
-  const handlePageChange = pageNumber => {
-    setSearch({ query, page: pageNumber });
-  };
+  const handlePageChange = useCallback(
+    pageNumber => {
+      setSearch({ page: pageNumber });
+    },
+    [setSearch]
+  );
+
+  function getGenreName(id) {
+    const match = genres.find(item => item.id === Number(id));
+    return match ? match.name : null;
+  }
 
   return (
     <>
-      <GoBackBtn />
-      <SearchForm />
+      <h1 className={s.title}>{getGenreName(id)}</h1>
       {movies.length > 0 && (
         <MovieList
           movies={movies}
@@ -56,4 +54,4 @@ const MoviesSearchPage = ({
   );
 };
 
-export default MoviesSearchPage;
+export default memo(GenresInfo);

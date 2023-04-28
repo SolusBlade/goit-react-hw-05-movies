@@ -1,0 +1,14 @@
+.genresList{
+    margin-left: 5px;
+}
+
+.genresItem{
+    color: #fff;
+    text-decoration: none;
+}
+
+.genresItem:hover,
+.genresItem:focus{
+    color: #b72f2b;
+    text-decoration:underline;
+}
