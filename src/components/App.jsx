@@ -24,21 +24,23 @@ const SharedLayout = () => {
   return (
     <>
       <MainNav />
-      <Suspense
-        fallback={
-          <ProgressBar
-            height="80"
-            width="80"
-            ariaLabel="progress-bar-loading"
-            wrapperStyle={{}}
-            wrapperClass="progress-bar-wrapper loader"
-            borderColor="#b72f2b"
-            barColor="#b72f2b"
-          />
-        }
-      >
-        <Outlet />
-      </Suspense>
+      <div className='bodyWrap'>
+        <Suspense
+          fallback={
+            <ProgressBar
+              height="80"
+              width="80"
+              ariaLabel="progress-bar-loading"
+              wrapperStyle={{}}
+              wrapperClass="progress-bar-wrapper loader"
+              borderColor="#b72f2b"
+              barColor="#b72f2b"
+            />
+          }
+        >
+          <Outlet />
+        </Suspense>
+      </div>
     </>
   );
 };
